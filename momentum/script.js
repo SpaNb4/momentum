@@ -6,19 +6,22 @@ const time = document.querySelector('.time');
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const focus = document.querySelector('.focus');
+const input = document.querySelector('.input');
 
 const btn_quote_change = document.querySelector('.btn_quote_change');
 const blockquote = document.querySelector('blockquote');
 const figcaption = document.querySelector('figcaption');
 
-const weatherIcon = document.querySelector('.weather-icon');
+const weatherIcon = document.querySelector('.weather_icon');
 const temperature = document.querySelector('.temperature');
-const weatherDescription = document.querySelector('.weather-description');
+const humidity = document.querySelector('.humidity');
+const wind_speed = document.querySelector('.wind_speed');
+const weatherDescription = document.querySelector('.weather_description');
 const city = document.querySelector('.city');
 
 let day_period = '';
 let base = '';
-const images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg'];
+const images = shuffle(['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg']);
 const day_periods = ['morning', 'day', 'evening', 'night'];
 let current_day_period = 0;
 let i = 0;
@@ -27,9 +30,6 @@ let n = 1;
 // Show Time
 function showTime() {
     let today = new Date();
-    // today.setHours(today.getHours() + 5);
-    today.setMinutes(today.getMinutes() + 107);
-    today.setSeconds(today.getSeconds() + 20);
     let day_week = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
     let months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
@@ -99,7 +99,7 @@ function getName() {
 function setName(e) {
     if (e.type === 'keypress') {
         // Make sure enter is pressed
-        if (e.which == 13 || e.keyCode == 13) {
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
             localStorage.setItem('name', e.target.innerText);
             name.blur();
         }
@@ -119,7 +119,7 @@ function getFocus() {
     }
 }
 
-// Set Name
+// Set Focus
 function setFocus(e) {
     if (e.type === 'keypress') {
         // Make sure enter is pressed
@@ -180,7 +180,8 @@ function getImage(all) {
 }
 
 function getQuote() {
-    fetch('https://cors-anywhere.herokuapp.com/http://api.quotable.io/random')
+    //https://cors-anywhere.herokuapp.com/
+    fetch('http://api.quotable.io/random?maxLength=100')
         .then(response => response.json())
         .then(data => {
             blockquote.textContent = data.content;
@@ -188,43 +189,97 @@ function getQuote() {
         })
 }
 
-async function getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=2e4027bfcfa973ef9714090040aba12a&units=metric`;
-    const res = await fetch(url);
-    const data = await res.json();
-
-    weatherIcon.className = 'weather-icon owf';
-    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperature.textContent = `${data.main.temp}°C`;
-    weatherDescription.textContent = data.weather[0].description;
-}
-
-function setCity(event) {
-    if (event.code === 'Enter') {
-        getWeather();
-        city.blur();
+function getWeather() {
+    if (localStorage.getItem('city') === null || localStorage.getItem('city') == '') {
+        city.textContent = '[Enter City]';
+    }
+    else {
+        city.textContent = localStorage.getItem('city');
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=2e4027bfcfa973ef9714090040aba12a&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == 'city not found') {
+                    weatherDescription.textContent = 'Ошибка, попробуйте ввести другой город.'
+                }
+                else {
+                    weatherIcon.className = 'weather_icon owf';
+                    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+                    temperature.textContent = `${data.main.temp}°C`;
+                    humidity.textContent=`Влажность: ${data.main.humidity}%`;
+                    wind_speed.textContent=`Скорость ветра: ${data.wind.speed} м/c`;
+                    weatherDescription.textContent = data.weather[0].description;
+                }
+            })
     }
 }
 
+function setCity(e) {
+    if (e !== undefined) {
+        if (e.type === 'keypress') {
+            // Make sure enter is pressed
+            if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                localStorage.setItem('city', e.target.innerText);
+                getWeather();
+                city.blur();
+            }
+        }
+    }
+    else {
+        localStorage.setItem('city', city.textContent);
+        getWeather();
+    }
+}
+
+function shuffle(array) {
+    let arr = array.slice();;
+    for (let i = arr.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 name.addEventListener('keypress', setName);
-name.addEventListener('blur', setName);
 name.addEventListener('click', () => {
     name.textContent = '⁣⁣';
 });
-name.addEventListener('focusout', () => {
-    if (name.textContent == '⁣⁣') {
+name.addEventListener('blur', () => {
+    if (name.textContent == '⁣⁣' || name.textContent.trim() == '⁣⁣') {
         name.textContent = '[Enter Name]';
+    }
+    else {
+        setName();
     }
 });
 
 focus.addEventListener('keypress', setFocus);
-focus.addEventListener('blur', setFocus);
 focus.addEventListener('click', () => {
     focus.textContent = '⁣⁣';
 });
-focus.addEventListener('focusout', () => {
-    if (focus.textContent == '⁣⁣') {
+focus.addEventListener('blur', () => {
+    if (focus.textContent == '⁣⁣' || focus.textContent.trim() == '⁣⁣') {
         focus.textContent = '[Enter Focus]';
+    }
+    else {
+        setFocus();
+    }
+});
+
+city.addEventListener('keypress', setCity);
+city.addEventListener('click', () => {
+    city.textContent = '';
+});
+city.addEventListener('blur', () => {
+    if (city.textContent == '' || city.textContent.trim() == '') {
+        if (localStorage.getItem('city') !== null) {
+            city.textContent = localStorage.getItem('city');
+        }
+        else {
+            city.textContent = '[Enter City]';
+        }
+    }
+    else {
+        setCity();
     }
 });
 
@@ -239,8 +294,6 @@ btn_bg_change.addEventListener('click', () => {
 });
 
 btn_quote_change.addEventListener('click', getQuote);
-
-city.addEventListener('keypress', setCity);
 
 // Run
 showTime();

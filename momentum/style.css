@@ -4,38 +4,18 @@
   padding: 0;
 }
 
+:root {
+  font-size: 10px;
+}
+
 body {
-  font-family: "Quicksand", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   height: 100vh;
+  font-family: "Quicksand", sans-serif;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   color: #fff;
   transition: background-image 1s ease-in-out;
-}
-
-.date {
-  font-size: 4rem;
-}
-
-.time {
-  font-size: 8rem;
-}
-
-h1 {
-  margin-bottom: 3rem;
-}
-
-.name {
-  width: 207px;
-}
-
-h2 {
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
 }
 
 .btn {
@@ -51,57 +31,110 @@ h2 {
 .btn:hover {
   filter: grayscale(0.8);
 }
-.btn:active,
+.btn:active {
+  transform: scale(1.02);
+  outline: 0;
+}
 .btn:focus {
   outline: 0;
 }
-.btn:active {
-  transform: scale(1.02);
+
+header {
+  display: flex;
+  width: 100%;
+  padding: 0 2rem;
+  justify-content: space-between;
 }
 
-.quote {
-  font: 1.2rem Georgia, serif;
+.weather_widget {
+  display: flex;
+  column-gap: 2rem;
+  align-items: center;
+  font-size: 2rem;
+  text-align: center;
+}
+.weather_widget .city {
+  padding: 1rem 0;
+  margin: 2rem auto;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
+}
+.weather_widget .temperature {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+.weather_widget .weather_description {
+  width: 30rem;
+  margin: 2rem auto;
+  font-size: 2rem;
+  padding: 1.2rem 0;
+  color: #ffffff;
+  background-color: #44aadd;
+  border-radius: 0.5rem;
+}
+.weather_widget .weather_icon {
+  font-size: 6rem;
+  color: #44aadd;
+}
+.weather_widget .weather_icon:hover {
+  animation: shake 1.5s;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.main .date {
+  font-size: 6rem;
+}
+.main .time {
+  font-size: 16rem;
+}
+.main h1 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+.main h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+.main h2:focus {
+  outline: none;
+}
+.main .name {
+  width: 20rem;
+}
+.main .name:focus {
+  outline: none;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+footer .quote {
+  font: 2rem Georgia, serif;
+  width: 80%;
+  max-width: 60rem;
   color: black;
   margin: 0;
   background: #eee;
-  padding: 1em;
-  border-radius: 1em;
+  padding: 2rem;
+  padding-bottom: 0;
+  border-radius: 1rem;
 }
-.quote figcaption,
-.quote blockquote {
-  margin: 1em;
-}
-.quote figcaption {
+footer .quote figcaption {
   text-align: right;
 }
+footer .quote blockquote {
+  text-align: right;
+  margin-bottom: 1rem;
+}
 
-.city {
-  width: 300px;
-  padding: 10px 0;
-  margin: 20px auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.temperature {
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-.weather-description {
-  width: 300px;
-  margin: 20px auto;
-  font-size: 20px;
-  padding: 12px 0;
-  color: #ffffff;
-  background-color: #44aadd;
-  border-radius: 5px;
-}
-.weather-icon {
-  font-size: 160px;
-  color: #44aadd;
-}
-.weather-icon:hover {
-  animation: shake 1.5s;
-}
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
@@ -122,9 +155,85 @@ h2 {
     transform: translate(1px, 2px) rotate(0deg);
   }
 }
+@media only screen and (max-width: 1200px) {
+  .main .date {
+    font-size: 4rem;
+  }
+  .main .time {
+    font-size: 12rem;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .main .date {
+    font-size: 3rem;
+  }
+  .main .time {
+    font-size: 10rem;
+  }
+  .main h1 {
+    font-size: 2.5rem;
+  }
+  .main h2 {
+    font-size: 2rem;
+  }
 
-@media (max-width: 700px) {
-  .time {
+  footer .quote {
+    font-size: 1.75rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .weather_widget {
+    flex-direction: column;
+  }
+
+  .main .date {
+    font-size: 2rem;
+  }
+  .main .time {
+    font-size: 8rem;
+  }
+
+  footer .quote {
+    font-size: 1.5rem;
+  }
+
+  .btn_quote_change {
+    margin: 0;
+  }
+
+  .weather_left {
+    display: flex;
+    column-gap: 2rem;
+  }
+  .weather_left .addition_weather_data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .main .date {
+    font-size: 2rem;
+  }
+  .main .time {
     font-size: 6rem;
+  }
+  .main h1 {
+    font-size: 2rem;
+  }
+  .main h2 {
+    font-size: 1.5rem;
+  }
+
+  .weather_left {
+    flex-direction: column;
+  }
+  .weather_left .addition_weather_data {
+    align-items: flex-start;
   }
 }

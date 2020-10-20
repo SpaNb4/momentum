@@ -7,36 +7,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/styles/owfont-regular.css">
-  <title>momentum</title>
+  <title>Momentum</title>
 </head>
 
 <body>
-  <button class="btn btn_bg_change"> </button>
+  <header>
+    <button class="btn btn_bg_change"> </button>
+    <div class="weather_widget">
+      <div class="weather_left">
+        <i class="weather_icon owf"></i>
+        <div class="temperature"></div>
+        <div class="addition_weather_data">
+          <div class="humidity"></div>
+          <div class="wind_speed"></div>
+        </div>
+      </div>
+      <div class="weather_right">
+        <div class="weather_description"></div>
+        <div class="city" contenteditable="true"></div>
+      </div>
+    </div>
+  </header>
 
-  <button class="btn btn_quote_change"></button>
 
-  <figure class="quote">
-    <blockquote>
+  <div class="main">
+    <div class="date"></div>
+    <time class="time"></time>
+    <h1>
+      <span class="greeting"></span>
+      <span class="name" contenteditable="true"></span>
+    </h1>
+    <h2>Какие У Тебя Планы На Сегодня?</h2>
+    <h2 class="focus" contenteditable="true"></h2>
+  </div>
 
-    </blockquote>
-    <figcaption>
+  <footer>
+    <figure class="quote">
+      <blockquote>
 
-    </figcaption>
-  </figure>
+      </blockquote>
+      <figcaption>
 
-  <i class="weather-icon owf"></i>
-  <div class="temperature"></div>
-  <div class="weather-description"></div>
-  <div class="city" contenteditable="true">Минск</div>
+      </figcaption>
+      <button class="btn btn_quote_change"></button>
+    </figure>
+  </footer>
 
-  <div class="date"></div>
-  <time class="time"></time>
-  <h1>
-    <span class="greeting"></span>
-    <span class="name" contenteditable="true"></span>
-  </h1>
-  <h2>Какие У Тебя Планы На Сегодня?</h2>
-  <h2 class="focus" contenteditable="true"></h2>
   <script src="script.js"></script>
 </body>
 

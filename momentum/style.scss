@@ -1,0 +1,247 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 10px;
+}
+
+body {
+  height: 100vh;
+  font-family: "Quicksand", sans-serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #fff;
+  transition: background-image 1s ease-in-out;
+}
+
+.btn {
+  width: 60px;
+  height: 60px;
+  border: 0;
+  background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  margin: 10px;
+  &:hover {
+    filter: grayscale(0.8);
+  }
+  &:active {
+    transform: scale(1.02);
+    outline: 0;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+header {
+  display: flex;
+  width: 100%;
+  padding: 0 2rem;
+  justify-content: space-between;
+}
+
+.weather_widget {
+  display: flex;
+  column-gap: 2rem;
+  align-items: center;
+  font-size: 2rem;
+  text-align: center;
+  .city {
+    padding: 1rem 0;
+    margin: 2rem auto;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
+  }
+  .temperature {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+  .weather_description {
+    width: 30rem;
+    margin: 2rem auto;
+    font-size: 2rem;
+    padding: 1.2rem 0;
+    color: #ffffff;
+    background-color: #44aadd;
+    border-radius: 0.5rem;
+  }
+  .weather_icon {
+    font-size: 6rem;
+    color: #44aadd;
+  }
+  .weather_icon:hover {
+    animation: shake 1.5s;
+  }
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  .date {
+    font-size: 6rem;
+  }
+  .time {
+    font-size: 16rem;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+    &:focus {
+      outline: none;
+    }
+  }
+  .name {
+    width: 20rem;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  .quote {
+    font: 2rem Georgia, serif;
+    width: 80%;
+    max-width: 60rem;
+    color: black;
+    margin: 0;
+    background: #eee;
+    padding: 2rem;
+    padding-bottom: 0;
+    border-radius: 1rem;
+    figcaption {
+      text-align: right;
+    }
+    blockquote {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .main {
+    .date {
+      font-size: 4rem;
+    }
+    .time {
+      font-size: 12rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .main {
+    .date {
+      font-size: 3rem;
+    }
+    .time {
+      font-size: 10rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+  }
+  footer .quote {
+    font-size: 1.75rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .weather_widget {
+    flex-direction: column;
+  }
+  .main {
+    .date {
+      font-size: 2rem;
+    }
+    .time {
+      font-size: 8rem;
+    }
+  }
+  footer .quote {
+    font-size: 1.5rem;
+  }
+  .btn_quote_change {
+    margin: 0;
+  }
+  .weather_left {
+    display: flex;
+    column-gap: 2rem;
+    .addition_weather_data {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .main {
+    .date {
+      font-size: 2rem;
+    }
+    .time {
+      font-size: 6rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  .weather_left {
+    flex-direction: column;
+    .addition_weather_data {
+      align-items: flex-start;
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+}
