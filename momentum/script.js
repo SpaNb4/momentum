@@ -11,6 +11,11 @@ const btn_quote_change = document.querySelector('.btn_quote_change');
 const blockquote = document.querySelector('blockquote');
 const figcaption = document.querySelector('figcaption');
 
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+
 let day_period = '';
 let base = '';
 const images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg'];
@@ -183,6 +188,24 @@ function getQuote() {
         })
 }
 
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=2e4027bfcfa973ef9714090040aba12a&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+}
+
+function setCity(event) {
+    if (event.code === 'Enter') {
+        getWeather();
+        city.blur();
+    }
+}
+
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
 name.addEventListener('click', () => {
@@ -205,7 +228,10 @@ focus.addEventListener('focusout', () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', getQuote);
+document.addEventListener('DOMContentLoaded', () => {
+    getQuote();
+    getWeather();
+});
 
 btn_bg_change.addEventListener('click', () => {
     let all_img = true;
@@ -213,6 +239,8 @@ btn_bg_change.addEventListener('click', () => {
 });
 
 btn_quote_change.addEventListener('click', getQuote);
+
+city.addEventListener('keypress', setCity);
 
 // Run
 showTime();
