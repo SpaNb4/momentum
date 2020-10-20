@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,14 +49,30 @@ h2 {
   margin: 10px;
 }
 .btn:hover {
-  filter: grayscale(.8);
+  filter: grayscale(0.8);
 }
 .btn:active,
 .btn:focus {
   outline: 0;
 }
-.btn:active{
-  transform: scale(1.02)
+.btn:active {
+  transform: scale(1.02);
+}
+
+.quote {
+  font: 1.2rem Georgia, serif;
+  color: black;
+  margin: 0;
+  background: #eee;
+  padding: 1em;
+  border-radius: 1em;
+}
+.quote figcaption,
+.quote blockquote {
+  margin: 1em;
+}
+.quote figcaption {
+  text-align: right;
 }
 
 @media (max-width: 700px) {
