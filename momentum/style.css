@@ -19,14 +19,13 @@ body {
 }
 
 .btn {
-  width: 60px;
-  height: 60px;
+  width: 6rem;
+  height: 6rem;
   border: 0;
   background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
   background-size: contain;
   background-repeat: no-repeat;
   filter: grayscale(1);
-  margin: 10px;
 }
 .btn:hover {
   filter: grayscale(0.8);
@@ -41,8 +40,7 @@ body {
 
 header {
   display: flex;
-  width: 100%;
-  padding: 0 2rem;
+  padding: 2rem 2rem 0 2rem;
   justify-content: space-between;
 }
 
@@ -55,13 +53,16 @@ header {
 }
 .weather_widget .city {
   padding: 1rem 0;
-  margin: 2rem auto;
   border: 0.1rem solid #ccc;
   border-radius: 0.5rem;
 }
 .weather_widget .temperature {
   font-size: 4rem;
   margin-bottom: 2rem;
+}
+.weather_widget .weather_left .main_weather_data {
+  display: flex;
+  flex-direction: column;
 }
 .weather_widget .weather_description {
   width: 30rem;
@@ -83,6 +84,7 @@ header {
 .main {
   display: flex;
   align-items: center;
+  text-align: center;
   flex-direction: column;
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -93,22 +95,30 @@ header {
 .main .time {
   font-size: 16rem;
 }
-.main h1 {
+.main .welcome {
   font-size: 3rem;
   margin-bottom: 3rem;
 }
-.main h2 {
+.main .welcome .name {
+  text-align: left;
+}
+.main h2,
+.main .focus {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   opacity: 0.8;
 }
-.main h2:focus {
+.main h2:focus,
+.main .focus:focus {
   outline: none;
 }
-.main .name {
+.main .name,
+.main .focus {
+  display: inline-block;
   width: 20rem;
 }
-.main .name:focus {
+.main .name:focus,
+.main .focus:focus {
   outline: none;
 }
 
@@ -170,10 +180,11 @@ footer .quote blockquote {
   .main .time {
     font-size: 10rem;
   }
-  .main h1 {
+  .main .welcome {
     font-size: 2.5rem;
   }
-  .main h2 {
+  .main h2,
+.main .focus {
     font-size: 2rem;
   }
 
@@ -189,6 +200,23 @@ footer .quote blockquote {
 
   .weather_widget {
     flex-direction: column;
+    margin-top: 2rem;
+  }
+  .weather_widget .weather_left {
+    display: flex;
+    column-gap: 2rem;
+  }
+  .weather_widget .weather_left .main_weather_data {
+    flex-direction: row;
+    column-gap: 1rem;
+  }
+  .weather_widget .weather_left .main_weather_data .temperature {
+    margin-bottom: 0;
+  }
+  .weather_widget .weather_left .addition_weather_data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .main .date {
@@ -206,14 +234,9 @@ footer .quote blockquote {
     margin: 0;
   }
 
-  .weather_left {
-    display: flex;
-    column-gap: 2rem;
-  }
-  .weather_left .addition_weather_data {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .btn {
+    width: 5rem;
+    height: 5rem;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -223,10 +246,11 @@ footer .quote blockquote {
   .main .time {
     font-size: 6rem;
   }
-  .main h1 {
+  .main .welcome {
     font-size: 2rem;
   }
-  .main h2 {
+  .main h2,
+.main .focus {
     font-size: 1.5rem;
   }
 
@@ -235,5 +259,10 @@ footer .quote blockquote {
   }
   .weather_left .addition_weather_data {
     align-items: flex-start;
+  }
+
+  .btn {
+    width: 4rem;
+    height: 4rem;
   }
 }

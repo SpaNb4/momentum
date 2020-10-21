@@ -19,14 +19,13 @@ body {
 }
 
 .btn {
-  width: 60px;
-  height: 60px;
+  width: 6rem;
+  height: 6rem;
   border: 0;
   background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
   background-size: contain;
   background-repeat: no-repeat;
   filter: grayscale(1);
-  margin: 10px;
   &:hover {
     filter: grayscale(0.8);
   }
@@ -41,8 +40,7 @@ body {
 
 header {
   display: flex;
-  width: 100%;
-  padding: 0 2rem;
+  padding: 2rem 2rem 0 2rem;
   justify-content: space-between;
 }
 
@@ -54,13 +52,18 @@ header {
   text-align: center;
   .city {
     padding: 1rem 0;
-    margin: 2rem auto;
     border: 0.1rem solid #ccc;
     border-radius: 0.5rem;
   }
   .temperature {
     font-size: 4rem;
     margin-bottom: 2rem;
+  }
+  .weather_left {
+    .main_weather_data {
+      display: flex;
+      flex-direction: column;
+    }
   }
   .weather_description {
     width: 30rem;
@@ -83,6 +86,7 @@ header {
 .main {
   display: flex;
   align-items: center;
+  text-align: center;
   flex-direction: column;
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -92,11 +96,15 @@ header {
   .time {
     font-size: 16rem;
   }
-  h1 {
+  .welcome {
     font-size: 3rem;
     margin-bottom: 3rem;
+    .name {
+      text-align: left;
+    }
   }
-  h2 {
+  h2,
+  .focus {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     opacity: 0.8;
@@ -104,7 +112,9 @@ header {
       outline: none;
     }
   }
-  .name {
+  .name,
+  .focus {
+    display: inline-block;
     width: 20rem;
     &:focus {
       outline: none;
@@ -175,10 +185,11 @@ footer {
     .time {
       font-size: 10rem;
     }
-    h1 {
+    .welcome {
       font-size: 2.5rem;
     }
-    h2 {
+    h2,
+    .focus {
       font-size: 2rem;
     }
   }
@@ -194,6 +205,23 @@ footer {
   }
   .weather_widget {
     flex-direction: column;
+    margin-top: 2rem;
+    .weather_left {
+      display: flex;
+      column-gap: 2rem;
+      .main_weather_data {
+        flex-direction: row;
+        column-gap: 1rem;
+        .temperature {
+          margin-bottom: 0;
+        }
+      }
+      .addition_weather_data {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   }
   .main {
     .date {
@@ -209,14 +237,9 @@ footer {
   .btn_quote_change {
     margin: 0;
   }
-  .weather_left {
-    display: flex;
-    column-gap: 2rem;
-    .addition_weather_data {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .btn {
+    width: 5rem;
+    height: 5rem;
   }
 }
 
@@ -228,10 +251,11 @@ footer {
     .time {
       font-size: 6rem;
     }
-    h1 {
+    .welcome {
       font-size: 2rem;
     }
-    h2 {
+    h2,
+    .focus {
       font-size: 1.5rem;
     }
   }
@@ -240,6 +264,10 @@ footer {
     .addition_weather_data {
       align-items: flex-start;
     }
+  }
+  .btn {
+    width: 4rem;
+    height: 4rem;
   }
 }
 
