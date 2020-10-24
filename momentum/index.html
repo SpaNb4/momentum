@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/styles/owfont-regular.css">
   <title>Momentum</title>
@@ -26,21 +27,23 @@
       </div>
       <div class="weather_right">
         <div class="weather_description"></div>
-        <div class="city" contenteditable="true"></div>
+        <div class="city" contenteditable="true" spellcheck="false"></div>
       </div>
     </div>
   </header>
 
 
   <div class="main">
-    <div class="date"></div>
-    <time class="time"></time>
+    <div class="time_wrapper">
+      <div class="date"></div>
+      <time class="time"></time>
+    </div>
     <span class="welcome">
       <span class="greeting"></span>
-      <span class="name" contenteditable="true"></span>
+      <span class="name" contenteditable="true" spellcheck="false"></span>
     </span>
     <h2>Какие у тебя планы на сегодня?</h2>
-    <div class="focus" contenteditable="true"></div>
+    <div class="focus" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <footer>
@@ -54,6 +57,8 @@
       <button class="btn btn_quote_change"></button>
     </figure>
   </footer>
+
+  <div class="blackout"></div>
 
   <script src="script.js"></script>
 </body>

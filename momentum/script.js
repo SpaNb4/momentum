@@ -22,7 +22,20 @@ const city = document.querySelector('.city');
 function showTime() {
     let today = new Date();
     let day_week = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-    let months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    let months = [
+        'января',
+        'февраля',
+        'марта',
+        'апреля',
+        'мая',
+        'июня',
+        'июля',
+        'августа',
+        'сентября',
+        'октября',
+        'ноября',
+        'декабря',
+    ];
 
     let day = day_week[today.getDay()];
     let day_month = today.getDate();
@@ -32,9 +45,10 @@ function showTime() {
     let sec = today.getSeconds();
     // Output Date and Time
     date.innerHTML = `${day}, ${day_month} ${month}`;
-    time.innerHTML = `${hour} <span>:</span>${addZero(min)} <span>:</span>${addZero(sec)} `;
+    time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)} `;
 
     if (min == '0' && sec == '0') {
+        setBgGreet();
         getImage();
     }
 
@@ -58,24 +72,21 @@ function setBgGreet() {
         // Morning
         day_period = day_periods[0];
         greeting.textContent = 'Доброе утро,';
-    }
-    else if (hour < 18 && hour >= 12) {
+    } else if (hour < 18 && hour >= 12) {
         // Arternoon
         day_period = day_periods[1];
         greeting.textContent = 'Добрый день,';
-    }
-    else if (hour < 24 && hour >= 18) {
+    } else if (hour < 24 && hour >= 18) {
         // Evening
         day_period = day_periods[2];
         greeting.textContent = 'Доброго вечера,';
-    }
-    else {
+    } else {
         // Night
         day_period = day_periods[3];
-        greeting.textContent = 'Доброй ночи,';
+        greeting.textContent = 'Спокойной ночи,';
     }
 
-    current_day_period = day_periods.indexOf(day_period)
+    current_day_period = day_periods.indexOf(day_period);
     base = `assets/images/${day_period}/`;
 }
 
@@ -84,50 +95,54 @@ const setLocalStorage = (input) => (e) => {
     if (e.type === 'keypress') {
         // Make sure enter is pressed
         if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-            if (input.textContent == '' || input.textContent.trim() == '') {
+            e.preventDefault();
+            if (input.textContent.trim() == '') {
                 if (localStorage.getItem(input.className) !== null) {
                     input.textContent = localStorage.getItem(input.className);
-                    input.blur();
-                }
-                else {
+                } else {
                     input.textContent = `[Enter ${input.className}]`;
                 }
-            }
-            else {
+            } else {
                 localStorage.setItem(input.className, input.textContent);
-                input.blur();
             }
+            input.blur();
             str = '';
-        }
-        else {
+        } else {
             str += e.key;
             if (str[0] != ' ') {
                 localStorage.setItem(input.className, str);
             }
         }
     }
-}
+    input.onkeydown = function (e) {
+        if (e.keyCode == 8 && input.textContent.trim() !== '') {
+            if (str.length == 1) {
+                str = str.substring(0, str.length - 1);
+                localStorage.removeItem(input.className);
+            } else {
+                str = str.substring(0, str.length - 1);
+                localStorage.setItem(input.className, str);
+            }
+        }
+    };
+};
 
 function getLocalStorage(input) {
     if (localStorage.getItem(input.className) === null) {
         input.textContent = `[Enter ${input.className}]`;
-    }
-    else {
+    } else {
         input.textContent = localStorage.getItem(input.className);
     }
 }
 
 function check_valid(input) {
-
     if (input.textContent.trim() == '') {
         if (localStorage.getItem(input.className) !== null) {
             input.textContent = localStorage.getItem(input.className);
-        }
-        else {
+        } else {
             input.textContent = `[Enter ${input.className}]`;
         }
-    }
-    else {
+    } else {
         setLocalStorage(input);
     }
 }
@@ -148,10 +163,10 @@ const generator = function* (arr) {
         yield arr[i];
         i++;
         if (i === length) {
-            i = 0
+            i = 0;
         }
     }
-}
+};
 
 const day_period_loop = generator(day_periods);
 let base = '';
@@ -169,60 +184,61 @@ function getImage(all) {
             base = `assets/images/${day_period_loop.next().value}/`;
             imageSrc = base + images[i];
         }
-
-    }
-    else {
+    } else {
         if (i < images.length - 1) {
             i++;
-        }
-        else {
+        } else {
             i = 0;
         }
     }
 
     btn_bg_change.disabled = true;
-    setTimeout(function () { btn_bg_change.disabled = false }, 1000);
+    setTimeout(function () {
+        btn_bg_change.disabled = false;
+    }, 1000);
 }
 
 function getQuote() {
-    fetch('https://api.quotable.io/random?maxLength=100')
-        .then(response => response.json())
-        .then(data => {
+    fetch('https://api.quotable.io/random?maxLength=60')
+        .then((response) => response.json())
+        .then((data) => {
             blockquote.textContent = data.content;
             figcaption.textContent = data.author;
-        })
+        });
 }
 
 function getWeather() {
     if (localStorage.getItem('city') === null) {
-        city.textContent = '[Enter City]';
-    }
-    else {
+        city.textContent = '[Enter city]';
+    } else {
         city.textContent = localStorage.getItem('city');
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=2e4027bfcfa973ef9714090040aba12a&units=metric`)
-            .then(response => response.json())
-            .then(data => {
+        fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=2e4027bfcfa973ef9714090040aba12a&units=metric`
+        )
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.message == 'city not found') {
                     weatherIcon.className = 'weather_icon owf';
                     temperature.textContent = '';
                     humidity.textContent = '';
                     wind_speed.textContent = '';
-                    weatherDescription.textContent = 'Ошибка, попробуйте ввести другой город.'
-                }
-                else {
+                    weatherDescription.style='background-color: #dc143c;';
+                    weatherDescription.textContent = 'Ошибка, попробуйте ввести другой город.';
+                } else {
                     weatherIcon.className = 'weather_icon owf';
                     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
                     temperature.textContent = `${data.main.temp}°C`;
                     humidity.textContent = `Влажность: ${data.main.humidity}%`;
                     wind_speed.textContent = `Скорость ветра: ${data.wind.speed} м/c`;
+                    weatherDescription.style=' background-color: #44aadd;';
                     weatherDescription.textContent = data.weather[0].description;
                 }
-            })
+            });
     }
 }
 
 function shuffle(array) {
-    let arr = array.slice();;
+    let arr = array.slice();
     for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -245,7 +261,7 @@ function input_listener(input) {
 }
 
 let input = [name, focus, city];
-input.forEach(el => {
+input.forEach((el) => {
     input_listener(el);
 });
 
